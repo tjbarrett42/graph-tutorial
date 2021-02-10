@@ -1,3 +1,4 @@
+import NewEvent from './NewEvent';
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { Container } from 'reactstrap';
@@ -5,6 +6,7 @@ import NavBar from './NavBar';
 import ErrorMessage from './ErrorMessage';
 import Welcome from './Welcome';
 import withAuthProvider, { AuthComponentProps } from './AuthProvider';
+import Calendar from './Calendar';
 import 'bootstrap/dist/css/bootstrap.css';
 
 class App extends Component<AuthComponentProps> {
@@ -32,6 +34,18 @@ class App extends Component<AuthComponentProps> {
                                   user={this.props.user}
                                   authButtonMethod={this.props.login} />
                      } />
+                <Route exact path="/calendar"
+                       render={(props) =>
+                           this.props.isAuthenticated ?
+                               <Calendar {...props} /> :
+                               <Redirect to="/" />
+                       } />
+                <Route exact path="/newevent"
+                       render={(props) =>
+                           this.props.isAuthenticated ?
+                               <NewEvent {...props} /> :
+                               <Redirect to="/" />
+                       } />
             </Container>
           </div>
         </Router>
